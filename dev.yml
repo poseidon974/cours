@@ -1,0 +1,9 @@
+services:
+  dev-serv:
+    image: registry.actilis.net/docker-images/mkdocs:latest
+    command: serve -a 0.0.0.0:80
+    restart: on-failure
+    ports:
+    - 8000:80
+    volumes:
+    - ./:/docs
