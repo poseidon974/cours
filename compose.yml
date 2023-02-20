@@ -1,0 +1,9 @@
+services:
+  app:
+    #image: 
+    build:
+      context: ./
+      dockerfile: Dockerfile
+    ports:
+    - published: 8080
+      target: 80

@@ -1,0 +1,140 @@
+site_name: Documentation - CS2I
+#thème du site
+docs_dir: ./src/
+theme: 
+  name: material
+  palette:
+
+    # Palette toggle for light mode
+    - media: "(prefers-color-scheme: light)"
+      scheme: default
+      toggle:
+        icon: material/brightness-7
+        name: Passer en mode jour
+
+    # Palette toggle for dark mode
+    - media: "(prefers-color-scheme: dark)"
+      scheme: slate
+      toggle:
+        icon: material/brightness-4
+        name: Passer en mode nuit
+
+    # Palette toggle for dark mode
+    - media: "(prefers-color-scheme: dark)"
+      scheme: slate
+      toggle:
+        icon: material/brightness-4
+        name: Laisser le système décider
+
+  language: fr
+  features :
+    - header.autohide
+       #navigation
+    - navigation.tabs
+    - navigation.tabs.sticky
+    - navigation.footer
+    - navigation.sections
+    - navigation.indexes
+    - toc.integrate
+    - navigation.top
+    - content.action.view
+    - content.code.copy
+    - content.tabs.link
+
+  icon:
+    edit: material/pencil
+    view: material/eye
+    repo: fontawesome/brands/git-alt
+
+  extra:
+#versionning
+    version:
+      provider: mike
+      default: latest
+
+markdown_extensions:
+
+#images
+  - attr_list
+  - md_in_html
+#listes
+  - def_list
+  - pymdownx.tasklist:
+      custom_checkbox: true
+#Admonitions
+  - admonition
+  - pymdownx.details
+  - pymdownx.superfences
+#Tableaux
+  - tables
+#Emojis
+  - attr_list
+  - pymdownx.emoji:
+      emoji_index: !!python/name:materialx.emoji.twemoji
+      emoji_generator: !!python/name:materialx.emoji.to_svg
+#formatages textes 
+  - pymdownx.critic
+  - pymdownx.caret
+  - pymdownx.keys
+  - pymdownx.mark
+  - pymdownx.tilde
+#faire du html dans du md
+  - md_in_html
+#annotations
+  - pymdownx.superfences
+#lien permanants
+  - toc:
+      permalink: true
+# content tab
+  - pymdownx.superfences
+  - pymdownx.tabbed:
+      alternate_style: true 
+
+# listes
+  - def_list
+  - pymdownx.tasklist:
+      custom_checkbox: true
+
+
+
+# extra_javascript:
+# #tableaux
+#   - https://unpkg.com/tablesort@5.3.0/dist/tablesort.min.js
+#   - javascripts/tablesort.js
+
+plugins:
+  - search: 
+      lang: fr
+  # - mike:
+  #     # These fields are all optional; the defaults are as below...
+  #     alias_type: symlink
+  #     redirect_template: null
+  #     deploy_prefix: ''
+  #     canonical_version: null
+  #     version_selector: true
+  #     css_dir: css
+  #     javascript_dir: js
+
+
+extra:
+#versionning
+  version:
+    provider: mike
+#Avertissements cookies
+  consent:
+    title: Cookies
+    description : Sur ce site de documentation, quelques cookies peuvent être utilisés. Voici la liste ci-dessous 
+    actions :
+      - accept
+
+
+# Pied de page 
+  social:
+    - icon : fontawesome/brands/linkedin
+      link: https://www.linkedin.com/in/l%C3%A9o-guilloux-0486921a6/
+    - icon: fontawesome/brands/github
+      link : https://github.com/poseidon974
+
+copyright: Copyright &copy; 2022-2023 Léo Guilloux
+repo_url : https://github.com/poseidon974/sitedocs
+repo_name: poseidon974/sitedocs
