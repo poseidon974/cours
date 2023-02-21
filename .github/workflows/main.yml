@@ -60,7 +60,7 @@
 
 name: Deployment sitedocs
 env :
-  VARIABLE_TAG : ${{ github.ref_name }}:-devel
+  VARIABLE_TAG : ${{ github.ref_name:-devel }}
 on:
   push:
     branches:
