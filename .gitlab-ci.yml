@@ -86,7 +86,7 @@ vul-scan:  # renommé "vul-scan" au lieu de "scan de vulnérabilité"
 
     # Inspection du rapport pour contorle si il y a des VULN et le cas échéant si on doit ou pas s'arrêter
     - |
-      grep -q "CRITICAL: [^0]" ./scan-result/scan-${CI_PROJECT_NAME}.log && if [ ${STOP_IF_VULNERABILITY_FOUND:-0} != 0 ] ; then  echo "Vulnérabilité CRITICAL détectée, arrêt du pipeline" && exit 1  ; fi 
+      grep -q "CRITICAL: [^0]" ./scan-result/scan-${CI_PROJECT_NAME}.log && if [ ${STOP_IF_VULNERABILITY_FOUND:-0} != 0 ] ; then  echo "Vulnérabilité CRITICAL détectée, arrêt du pipeline" && exit 1  ; fi ; true
 
   # artifacts:
   #   untracked: true
