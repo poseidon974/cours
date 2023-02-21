@@ -1,0 +1,19 @@
+stages:        
+  - build
+  - push
+  - deploy
+
+Construction:      
+  stage: build
+  script:
+    - docker compose build
+
+Push:
+  stage: push
+  script:
+    - docker compose push
+
+Deploiement:
+  stage: deploy
+  script:
+    - echo "Un jour, on déploie l'application"

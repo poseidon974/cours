@@ -1,6 +1,6 @@
 services:
   app:
-    #image: 
+    image: ghcr.io/poseidon974/cours:${VERSION:-latest}
     build:
       context: ./
       dockerfile: Dockerfile
