@@ -29,16 +29,16 @@ push:
 Scan de vulérabilité:
   stage: vul-scan
   script:
-  - |
-      # On s'assure que le dossier de rapport existe
-      mkdir -p -m 2770 ${PWD}/scan-result
+# On s'assure que le dossier de rapport existe
+  - mkdir -p -m 2770 ${PWD}/scan-result
 
-      # Lancement du scan
-      docker container run --rm -v /var/run/docker.sock:/var/run/docker.sock -v trivy-cache:/root/.cache/ aquasec/trivy --cache-dir /root/.cache/  image --scanners vuln --no-progress ${REGISTRY_URL}:${HTTPD_VERSION}-${TAG_PREFIX} | tee ${PWD}/scan-result/scan-${CI_PROJECT_NAME}.log
+# Lancement du scan
+  - docker container run --rm -v /var/run/docker.sock:/var/run/docker.sock -v trivy-cache:/root/.cache/ aquasec/trivy --cache-dir /root/.cache/  image --scanners vuln --no-progress ${REGISTRY_URL}:${HTTPD_VERSION}-${TAG_PREFIX} | tee ${PWD}/scan-result/scan-${CI_PROJECT_NAME}.log
 
-      # Inspection du rapport pour contorle si il y a des VULN et le cas échéant si on doit ou pas s'arrêter
-      grep -q "CRITICAL: [^0]" ${PWD}/scan-result/scan-${CI_PROJECT_NAME}.log && if [ ${STOP_IF_VULNERABILITY_FOUND:-0} != 0 ] ; then  echo "Vulnérabilité CRITICAL détectée, arrêt du pipeline" && exit 1  ; fi 
-      
+# Inspection du rapport pour contorle si il y a des VULN et le cas échéant si on doit ou pas s'arrêter
+
+  - grep -q "CRITICAL: [^0]" ${PWD}/scan-result/scan-${CI_PROJECT_NAME}.log && if [ ${STOP_IF_VULNERABILITY_FOUND:-0} != 0 ] ; then  echo "Vulnérabilité CRITICAL détectée, arrêt du pipeline" && exit 1  ; fi 
+
   artifacts:
     when: always
     paths:
