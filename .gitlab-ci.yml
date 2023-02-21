@@ -13,12 +13,12 @@ Construction:
     #- docker compose build
     - docker image build -t image:version
 
-Push:
-  stage: push
-  script:
-    - docker compose push
+# Push:
+#   stage: push
+#   script:
+#     - docker compose push
 
-Deploiement:
-  stage: deploy
-  script:
-    - echo "Un jour, on déploie l'application"
+# Deploiement:
+#   stage: deploy
+#   script:
+#     - echo "Un jour, on déploie l'application"
