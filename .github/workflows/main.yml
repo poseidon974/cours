@@ -59,6 +59,7 @@
 # besoin de : docker login + spécification du nom du registre + authentification
 
 name: Deployment sitedocs
+permissions: write-all
 on:
   push:
     branches:
