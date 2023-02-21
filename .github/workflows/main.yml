@@ -1,28 +1,28 @@
 name: test-action-1
 on: push
 jobs:
-    Env_vars:
+  Env_vars:
   
-    runs-on: self-hosted
-    steps:
-    - uses: actions/checkout@v3
-    - name: Print Env vars
-      run: |
-        set
+  runs-on: self-hosted
+  steps:
+  - uses: actions/checkout@v3
+  - name: Print Env vars
+    run: |
+      set
     
     # - name: build image
     #   run: |
     #     ls -l
     #     pwd
 
-    login_docker:
+  login_docker:
 
-    runs-on: self-hosted
-    needs: [Env_vars]
-    steps:
-    - uses: docker/setup-buildx-action@v2
-    - name: Set up Docker Buildx
-      id: buildx
+  runs-on: self-hosted
+  needs: [Env_vars]
+  steps:
+  - uses: docker/setup-buildx-action@v2
+  - name: Set up Docker Buildx
+    id: buildx
    
     
 
