@@ -59,9 +59,6 @@
 # besoin de : docker login + spécification du nom du registre + authentification
 
 name: Deployment sitedocs
-env :
-  VARIABLE_TAG : ${{ github.ref_name }}
-permissions : write-all
 on:
   push:
     branches:
@@ -81,19 +78,19 @@ jobs:
     #   run: |
     #       if [ ${{ github.ref_name }} = 'main' ] ; then   $VARIABLE_TAG='devel' ; else  $VARIABLE_TAG=${{github.ref_name}} ; fi
 
-  # logingit:
-  #   runs-on: self-hosted
-  #   steps:
-  #     - name: Login to Github Packages
-  #       uses: docker/login-action@v2
-  #       with:
-  #         registry: ghcr.io
-  #         username: ${{ github.actor }}
-  #         password: ${{ secrets.GITHUB_TOKEN }}
+  logingit:
+    runs-on: self-hosted
+    steps:
+      - name: Login to Github Packages
+        uses: docker/login-action@v2
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
 
   buildimage:
     runs-on: self-hosted
-#    needs: [logingit]
+    needs: [logingit]
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
