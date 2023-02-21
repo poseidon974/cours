@@ -43,8 +43,8 @@ jobs:
     - name: Push image
       uses: actions/checkout@v3
     - run: |
-        docker image tag ${GITHUB_REPOSITORY}:build-temp ${GITHUB_REPOSITORY}:${github.ref_name:-devel}
         echo ${secrets.GITHUB_TOKEN} |  docker login ${GITHUB_REPOSITORY} -u ${github.actor} --password-stdin
+        docker image tag ${GITHUB_REPOSITORY}:build-temp ${GITHUB_REPOSITORY}:${github.ref_name:-devel}
         docker image push  ${GITHUB_REPOSITORY}:${github.ref_name:-devel}
         docker logout
     - name: clean after
