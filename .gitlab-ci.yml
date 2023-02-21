@@ -40,8 +40,8 @@ Scan de vulérabilité:
   - |
     grep -q "CRITICAL: [^0]" ${PWD}/scan-result/scan-${CI_PROJECT_NAME}.log && if [ ${STOP_IF_VULNERABILITY_FOUND:-0} != 0 ] ; then  echo "Vulnérabilité CRITICAL détectée, arrêt du pipeline" && exit 1  ; fi 
 
-  artifacts:
-#    when: always
-    paths:
-    - ${PWD}/scan-result
-    expire_in: 1 week
+  # artifacts:
+  #   when: always
+  #   paths:
+  #   - ${PWD}/scan-result
+  #   expire_in: 1 week
