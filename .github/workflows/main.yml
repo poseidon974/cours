@@ -110,7 +110,7 @@ jobs:
       - name: Push image
         run: |
           echo ${{ secrets.GITHUB_TOKEN }} | docker login ghcr.io -u ${{ github.actor }} --password-stdin
-          docker tag ${{ github.repository }}:build-temp ${{ github.repository }}:latest
+          docker tag ${{ github.repository }}:build-temp ghcr.io/${{ github.repository }}:latest
           docker push ghcr.io/${{ github.repository }}:latest
           docker logout
       - name: Clean up
