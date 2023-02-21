@@ -89,6 +89,7 @@ vul-scan:  # renommé "vul-scan" au lieu de "scan de vulnérabilité"
       grep -q "CRITICAL: [^0]" ./scan-result/scan-${CI_PROJECT_NAME}.log && if [ ${STOP_IF_VULNERABILITY_FOUND:-0} != 0 ] ; then  echo "Vulnérabilité CRITICAL détectée, arrêt du pipeline" && exit 1  ; fi 
 
   artifacts:
+    untracked: true
     when: always
     paths:
     - ./scan-result/
