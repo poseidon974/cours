@@ -1,28 +1,12 @@
-name: 'build'
-
-on:
-  workflow_dispatch:
-  push:
-    branches:
-    - master
-  pull_request:
-
+name: test-action-1
+on: push
 jobs:
   build:
-    name: 'Build'
-    runs-on: ubuntu-latest
+  
+    runs-on: self-hosted
     steps:
-#      - name: "Build:checkout"
-#        uses: actions/checkout@v2
-#      - name: 'Build:dockerimage'
-#        uses: docker/build-push-action@v2
-      - name: "build:pushimage"
-        uses: docker/build-push-action@v2
-        with:
-          context: .
-          file: ./Dockerfile
-          registry: ghcr.io
-          username: "poseidon974"
-          password: ${{ secrets.PAT }}
-          repository: poseidon974/cours
-          tags: latest
+    - uses: actions/checkout@v3
+    - name: Write a multi-line message
+      run: |
+        echo This demo file shows a 
+        echo very basic and easy-to-leo-ok
