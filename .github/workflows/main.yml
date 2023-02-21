@@ -94,7 +94,7 @@ jobs:
         run: docker build -t ${{ github.repository }}:build-temp .
       - name: Action 2
         run: |
-          docker tag ${{ github.repository }}:build-temp $${{ github.repository }}:${{ github.ref }}
+          docker tag ${{ github.repository }}:build-temp ${{ github.repository }}:${{ github.ref_name }}
 #          docker tag ${{ github.repository }}:build-temp ${{ github.repository }}:${{ github.ref }}
       # - name: Action 3
       #   run: 
