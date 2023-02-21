@@ -1,7 +1,12 @@
-stages:        
+image: docker:stable
+variables:
+  IMAGE_NAME: ${CI_REGISTRY}/${CI_PROJECT_PATH}
+
+stages:  
+  - prebuild      
   - build
-  - push
-  - deploy
+  # - push
+  # - deploy
 
 Prebuild:
   stage: prebuild 
@@ -12,7 +17,7 @@ Construction:
   stage: build
   script:
     #- docker compose build
-    - docker image build -t image:version .
+    - docker image build -t ${IMAGE_NAME}:version .
   tags:
   - runner-builder
 
