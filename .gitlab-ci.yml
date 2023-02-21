@@ -2,37 +2,25 @@ image: docker:stable
 variables:
   IMAGE_NAME: ${CI_REGISTRY}/${CI_PROJECT_PATH}
 
-stages:  
-  - prebuild      
+stages:     
   - build
-  # - push
-  # - deploy
+  - push
 
-Prebuild:
-  stage: prebuild 
-  script:
-  - set 
 
 Construction:      
   stage: build
+  before_script:
+  - set 
   script:
-    #- docker compose build
     - docker image build -t ${IMAGE_NAME}:build-temp .
+    
+
+push:
+  stage: push
+  script:
     - docker image tag ${IMAGE_NAME}:build-temp ${IMAGE_NAME}:${CI_COMMIT_TAG:-devel}
     - echo ${CI_REGISTRY_PASSWORD} |  docker login ${CI_REGISTRY} -u ${CI_REGISTRY_USER} --password-stdin
     - docker image push  ${IMAGE_NAME}:${CI_COMMIT_TAG:-devel}
     - docker logout
   after_script:
     - docker image rm ${IMAGE_NAME}:build-temp ${IMAGE_NAME}:${CI_COMMIT_TAG:-devel}
-  # tags:
-  # - runner-builder
-
-# Push:
-#   stage: push
-#   script:
-#     - docker compose push
-
-# Deploiement:
-#   stage: deploy
-#   script:
-#     - echo "Un jour, on déploie l'application"
