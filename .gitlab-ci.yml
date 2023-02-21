@@ -1,27 +1,74 @@
+# image: docker:stable
+# variables:
+#   IMAGE_NAME: ${CI_REGISTRY}/${CI_PROJECT_PATH}
+
+# stages:     
+#   - build
+#   - vul-scan
+#   - push
+
+
+# Construction:      
+#   stage: build
+#   before_script:
+#   - set 
+#   script:
+#     - docker image build -t ${IMAGE_NAME}:build-temp .
+    
+
+# push:
+#   stage: push
+#   script:
+#     - docker image tag ${IMAGE_NAME}:build-temp ${IMAGE_NAME}:${CI_COMMIT_TAG:-devel}
+#     - echo ${CI_REGISTRY_PASSWORD} |  docker login ${CI_REGISTRY} -u ${CI_REGISTRY_USER} --password-stdin
+#     - docker image push  ${IMAGE_NAME}:${CI_COMMIT_TAG:-devel}
+#     - docker logout
+#   after_script:
+#     - docker image rm ${IMAGE_NAME}:build-temp ${IMAGE_NAME}:${CI_COMMIT_TAG:-devel}
+
+# Scan de vulérabilité:
+#   stage: vul-scan
+#   script:
+# # On s'assure que le dossier de rapport existe
+#   - mkdir -p -m 2770 ${PWD}/scan-result
+
+# # Lancement du scan
+#   - docker container run --rm -v /var/run/docker.sock:/var/run/docker.sock -v trivy-cache:/root/.cache/ aquasec/trivy --cache-dir /root/.cache/  image --scanners vuln --no-progress ${IMAGE_NAME}:build-temp | tee ${PWD}/scan-result/scan-${CI_PROJECT_NAME}.log
+
+# # Inspection du rapport pour contorle si il y a des VULN et le cas échéant si on doit ou pas s'arrêter
+
+#   - |
+#     grep -q "CRITICAL: [^0]" ${PWD}/scan-result/scan-${CI_PROJECT_NAME}.log && if [ ${STOP_IF_VULNERABILITY_FOUND:-0} != 0 ] ; then  echo "Vulnérabilité CRITICAL détectée, arrêt du pipeline" && exit 1  ; fi 
+
+#   # artifacts:
+#   #   when: always
+#   #   paths:
+#   #   - ${PWD}/scan-result
+#   #   expire_in: 1 week
+
 image: docker:stable
+
 variables:
   IMAGE_NAME: ${CI_REGISTRY}/${CI_PROJECT_PATH}
 
-stages:     
+stages:
   - build
   - vul-scan
   - push
 
-
-Construction:      
+Construction:
   stage: build
   before_script:
-  - set 
+    - set
   script:
     - docker image build -t ${IMAGE_NAME}:build-temp .
-    
 
 push:
   stage: push
   script:
     - docker image tag ${IMAGE_NAME}:build-temp ${IMAGE_NAME}:${CI_COMMIT_TAG:-devel}
-    - echo ${CI_REGISTRY_PASSWORD} |  docker login ${CI_REGISTRY} -u ${CI_REGISTRY_USER} --password-stdin
-    - docker image push  ${IMAGE_NAME}:${CI_COMMIT_TAG:-devel}
+    - echo ${CI_REGISTRY_PASSWORD} | docker login ${CI_REGISTRY} -u ${CI_REGISTRY_USER} --password-stdin
+    - docker image push ${IMAGE_NAME}:${CI_COMMIT_TAG:-devel}
     - docker logout
   after_script:
     - docker image rm ${IMAGE_NAME}:build-temp ${IMAGE_NAME}:${CI_COMMIT_TAG:-devel}
@@ -29,19 +76,19 @@ push:
 Scan de vulérabilité:
   stage: vul-scan
   script:
-# On s'assure que le dossier de rapport existe
-  - mkdir -p -m 2770 ${PWD}/scan-result
+    # On s'assure que le dossier de rapport existe
+    - mkdir -p -m 2770 ${PWD}/scan-result
 
-# Lancement du scan
-  - docker container run --rm -v /var/run/docker.sock:/var/run/docker.sock -v trivy-cache:/root/.cache/ aquasec/trivy --cache-dir /root/.cache/  image --scanners vuln --no-progress ${IMAGE_NAME}:build-temp | tee ${PWD}/scan-result/scan-${CI_PROJECT_NAME}.log
+    # Lancement du scan
+    - docker container run --rm -v /var/run/docker.sock:/var/run/docker.sock -v trivy-cache:/root/.cache/ aquasec/trivy --cache-dir /root/.cache/  image --scanners vuln --no-progress ${IMAGE_NAME}:build-temp | tee ${PWD}/scan-result/scan-${CI_PROJECT_NAME}.log
 
-# Inspection du rapport pour contorle si il y a des VULN et le cas échéant si on doit ou pas s'arrêter
+    # Inspection du rapport pour contorle si il y a des VULN et le cas échéant si on doit ou pas s'arrêter
 
-  - |
-    grep -q "CRITICAL: [^0]" ${PWD}/scan-result/scan-${CI_PROJECT_NAME}.log && if [ ${STOP_IF_VULNERABILITY_FOUND:-0} != 0 ] ; then  echo "Vulnérabilité CRITICAL détectée, arrêt du pipeline" && exit 1  ; fi 
+    - |
+      grep -q "CRITICAL: [^0]" ${PWD}/scan-result/scan-${CI_PROJECT_NAME}.log && if [ ${STOP_IF_VULNERABILITY_FOUND:-0} != 0 ]; then echo "Vulnérabilité CRITICAL détectée, arrêt du pipeline" && exit 1; fi
+  artifacts:
+      paths:
+        - scan-result/
+      expire_in: 1 week
 
-  # artifacts:
-  #   when: always
-  #   paths:
-  #   - ${PWD}/scan-result
-  #   expire_in: 1 week
+
