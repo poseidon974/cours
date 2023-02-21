@@ -20,8 +20,8 @@ Construction:
     - docker image build -t ${IMAGE_NAME}:build-temp .
     - docker image tag ${IMAGE_NAME}:build-temp ${IMAGE_NAME}:${CI_COMMIT_TAG:-devel}
     - docker image push  ${IMAGE_NAME}:${CI_COMMIT_TAG:-devel}
-  after_script:
-    - docker image rm ${IMAGE_NAME}:build-temp ${IMAGE_NAME}:${CI_COMMIT_TAG:-devel}
+  # after_script:
+  #   - docker image rm ${IMAGE_NAME}:build-temp ${IMAGE_NAME}:${CI_COMMIT_TAG:-devel}
   # tags:
   # - runner-builder
 
