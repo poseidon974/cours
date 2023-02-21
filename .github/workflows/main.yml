@@ -2,11 +2,11 @@ name: Deployement sitedocs
 on: push
 jobs:
   
-  # check:
-  #   runs-on: self-hosted
-  #   steps:
-  #   - name: Affichage Envvars
-  #     uses: actions/checkout@v3
+  check:
+    runs-on: self-hosted
+    steps:
+    - name: Affichage Envvars
+      uses: actions/checkout@v3
 
   # logindocker:
   #   runs-on: self-hosted
