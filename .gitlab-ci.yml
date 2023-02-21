@@ -2,11 +2,16 @@ stages:
   - build
   - push
   - deploy
+Prebuild:
+  stage: prebuild 
+  script::
+  - set 
 
 Construction:      
   stage: build
   script:
-    - docker compose build
+    #- docker compose build
+    - docker image build -t image:version
 
 Push:
   stage: push

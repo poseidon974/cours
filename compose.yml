@@ -1,6 +1,7 @@
 services:
   app:
-    image: ghcr.io/poseidon974/cours:${VERSION:-latest}
+#    image: ghcr.io/poseidon974/cours:${VERSION:-latest}
+    image: ${IMAGE:-registry.gitlab.com/poseidon974/cours}:${VERISON:-latest}
     build:
       context: ./
       dockerfile: Dockerfile
