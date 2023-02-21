@@ -60,7 +60,7 @@
 
 name: Deployment sitedocs
 env :
-  VARIABLE_TAG : ${{ github.ref_name:-devel }}
+  VARIABLE_TAG : ${{ github.ref_name }}
 on:
   push:
     branches:
@@ -112,11 +112,11 @@ jobs:
           echo ${{ secrets.GITHUB_TOKEN }} | docker login ghcr.io -u ${{ github.actor }} --password-stdin
       - name: Action 2
         run: |
-          docker tag ${{ github.repository }}:build-temp ${{ github.repository }}:$VARIABLE_TAG
-          docker tag ${{ github.repository }}:build-temp ${{ github.repository }}:$VARIABLE_TAG
+          docker tag ${{ github.repository }}:build-temp ${{ github.repository }}:latest
+          docker tag ${{ github.repository }}:build-temp ${{ github.repository }}:latest
       - name: Action 3
         run: 
-          docker push ${{ github.repository }}:$VARIABLE_TAG
+          docker push ${{ github.repository }}:latest
           docker logout
       - name: Clean up
-        run: docker image rm ${{ github.repository }}:build-temp ${{ github.repository }}:$VARIABLE_TAG
+        run: docker image rm ${{ github.repository }}:build-temp ${{ github.repository }}:latest
