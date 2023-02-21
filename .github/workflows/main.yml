@@ -16,11 +16,14 @@ jobs:
     #     pwd
 
     login_docker:
+
+    runs-on: self-hosted
     needs: [Env_vars]
     steps:
+    - uses: docker/setup-buildx-action@v2
     - name: Set up Docker Buildx
       id: buildx
-      uses: docker/setup-buildx-action@v2
+   
     
 
     # Login_git:
