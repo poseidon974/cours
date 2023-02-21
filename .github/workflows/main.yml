@@ -93,10 +93,11 @@ jobs:
           echo ${{ secrets.GITHUB_TOKEN }} | docker login ghcr.io -u ${{ github.actor }} --password-stdin
       - name: Action 2
         run: |
-          docker tag ${{ github.repository }}:build-temp ${{ github.repository }}:${{ github.ref }}
-      - name: Action 3
-        run: 
-          docker push ${{ github.repository }}:${{ github.ref }}
-          docker logout
-      - name: Clean up
-        run: docker image rm ${{ github.repository }}:build-temp ${{ github.repository }}:${{ github.ref }}
+          echo "docker tag ${{ github.repository }}:build-temp ${{ github.repository }}:${{ github.ref }}"
+#          docker tag ${{ github.repository }}:build-temp ${{ github.repository }}:${{ github.ref }}
+      # - name: Action 3
+      #   run: 
+      #     docker push ${{ github.repository }}:${{ github.ref }}
+      #     docker logout
+      # - name: Clean up
+      #   run: docker image rm ${{ github.repository }}:build-temp ${{ github.repository }}:${{ github.ref }}
