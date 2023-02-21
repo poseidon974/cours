@@ -59,8 +59,7 @@
 # besoin de : docker login + spécification du nom du registre + authentification
 
 name: Deployment sitedocs
-env:
-  VARIABLE_TAG: ''
+
 on:
   push:
     branches:
