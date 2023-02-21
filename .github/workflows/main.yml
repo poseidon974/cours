@@ -6,7 +6,17 @@ jobs:
     runs-on: self-hosted
     steps:
     - uses: actions/checkout@v3
-    - name: Write a multi-line message
+    - name: Print Env vars
       run: |
-        echo This demo file shows a 
-        echo very basic and easy-to-leo-ok
+        set
+    
+    - name: build image
+      run: |
+        ls -l
+        pwd
+
+# Utilisation variables entre les taches
+# ordonnancement des taches
+# Dépendances entre les taches
+# à minia build + push sur ghcr.io l'image sitedocs
+# besoin de : docker login + spécification du nom du registre + authentification
