@@ -18,8 +18,8 @@ Construction:
   script:
     #- docker compose build
     - docker image build -t ${IMAGE_NAME}:version .
-  tags:
-  - runner-builder
+  # tags:
+  # - runner-builder
 
 # Push:
 #   stage: push
