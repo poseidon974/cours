@@ -27,7 +27,7 @@ jobs:
 #    needs: [Envvars]
     steps:
     - name: Login to Github Packages
-      uses: docker/login-action@v2
+      uses: docker/login-action@v3
       with:
         registry: ghcr.io/${{ github.actor }}/cours
         username: ${{ github.actor }}
