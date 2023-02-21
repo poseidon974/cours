@@ -75,25 +75,26 @@ jobs:
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
 
-  buildimage:
-    runs-on: self-hosted
-    needs: [logingit]
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v2
-      - name: Build image
-        run: docker build -t ${{ github.repository }}:build-temp .
+  # buildimage:
+  #   runs-on: self-hosted
+  #   needs: [logingit]
+  #   steps:
+  #     - name: Checkout code
+  #       uses: actions/checkout@v2
+  #    
   
   pushimage:
     runs-on: self-hosted
-    needs: [buildimage]
+#    needs: [buildimage]
     steps:
       - name: Push image
         run: |
           echo ${{ secrets.GITHUB_TOKEN }} | docker login ghcr.io -u ${{ github.actor }} --password-stdin
+      - name: Build image
+        run: docker build -t ${{ github.repository }}:build-temp .
       - name: Action 2
         run: |
-          docker tag ${{GITHUB.SERVER_URL}}/${{ github.repository }}:build-temp ${{GITHUB.SERVER_URL}}/${{ github.repository }}:${{ github.ref }}
+          docker tag ${{ github.repository }}:build-temp $${{ github.repository }}:${{ github.ref }}
 #          docker tag ${{ github.repository }}:build-temp ${{ github.repository }}:${{ github.ref }}
       # - name: Action 3
       #   run: 
