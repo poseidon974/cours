@@ -1,57 +1,3 @@
-# name: Deployement sitedocs
-# on: push
-# jobs:
-  
-#   # check:
-#   #   runs-on: self-hosted
-#   #   steps:
-#   #   - name: Affichage Envvars
-#   #     uses: actions/checkout@v3
-#   #   - run: |
-#   #       set
-#   #       echo "tag name ${{ github.ref_name }}"
-
-#   # logindocker:
-#   #   runs-on: self-hosted
-#   #   steps:
-#   #   - name: Set up Docker Buildx
-#   #     uses: docker/setup-buildx-action@v2
-#   #     id: buildx
-
-#   logingit:
-#     runs-on: self-hosted
-#     steps:
-#     - name: Login to Github Packages
-#       uses: docker/login-action@v2
-#       with:
-#         registry: ghcr.io
-#         username: ${{ github.actor }}
-#         password: ${{ secrets.GITHUB_TOKEN }}
-
-#   buildimage:
-#     runs-on: self-hosted
-#     needs: [logingit]
-#     steps:
-#     - name: build image
-#       uses: actions/checkout@v3
-#     - run: docker build -t ${GITHUB_REPOSITORY}:build-temp .
-
-#   pushimage:
-#     runs-on: self-hosted
-#     needs: [buildimage]
-#     steps:
-#     - name: Push image
-#       uses: actions/checkout@v3
-#     - run: |
-#         echo ${secrets.GITHUB_TOKEN} |  docker login ${GITHUB_REPOSITORY} -u ${github.actor} --password-stdin
-#         docker image tag ${GITHUB_REPOSITORY}:build-temp ${GITHUB_REPOSITORY}:${github.ref_name:-devel}
-#         docker image push  ${GITHUB_REPOSITORY}:${github.ref_name:-devel}
-#         docker logout
-#     - name: clean after
-#       uses: actions/checkout@v3
-#     - run: docker image rm ${GITHUB_REPOSITORY}:build-temp ${GITHUB_REPOSITORY}:${github.ref_name:-devel}
-
-
 # Utilisation variables entre les taches
 # ordonnancement des taches
 # Dépendances entre les taches
@@ -109,8 +55,8 @@ jobs:
       - name: Push image
         run: |
           echo ${{ secrets.GITHUB_TOKEN }} | docker login ghcr.io -u ${{ github.actor }} --password-stdin
-          docker tag ${{ github.repository }}:build-temp ghcr.io/${{ github.repository }}:latest
-          docker push ghcr.io/${{ github.repository }}:latest
+          docker tag ${{ github.repository }}:build-temp ghcr.io/${{ github.repository }}:0.4
+          docker push ghcr.io/${{ github.repository }}:0.4
           docker logout
       - name: Clean up
-        run: docker image rm ${{ github.repository }}:build-temp ${{ github.repository }}:latest
+        run: docker image rm ${{ github.repository }}:build-temp ${{ github.repository }}:0.4
